@@ -3,6 +3,8 @@ import { join } from "node:path";
 import database from "infra/database.js";
 
 export default async function migrations(request, response) {
+  console.log("Just for testing staging environment");
+
   const databaseClient = await database.getNewClient();
 
   const defaultMigrationOptions = {
