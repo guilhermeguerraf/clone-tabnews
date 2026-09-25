@@ -64,7 +64,10 @@ async function create(params) {
 async function update(username, params) {
   const currentUser = await findByUsername(username);
 
-  if ("username" in params) {
+  if (
+    "username" in params &&
+    params.username.toLowerCase() !== username.toLowerCase()
+  ) {
     await validateUniqueUsername(params.username);
   }
 

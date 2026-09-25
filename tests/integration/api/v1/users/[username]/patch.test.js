@@ -117,16 +117,23 @@ describe("PATCH /api/v1/users/[username]", () => {
         },
       );
 
-      expect(response.status).toBe(400);
+      expect(response.status).toBe(200);
 
       const responseBody = await response.json();
 
       expect(responseBody).toEqual({
-        name: "ValidationError",
-        message: "O username informado já está sendo utilizado.",
-        action: "Utilize outro username para realizar esta operação.",
-        status_code: 400,
+        id: responseBody.id,
+        username: "MesmoUsername",
+        email: "mesmousername@example.test",
+        password: responseBody.password,
+        created_at: responseBody.created_at,
+        updated_at: responseBody.updated_at,
       });
+
+      expect(uuidVersion(responseBody.id)).toBe(4);
+      expect(responseBody.created_at).not.toBeNaN();
+      expect(responseBody.updated_at).not.toBeNaN();
+      expect(responseBody.updated_at > responseBody.created_at).toBe(true);
     });
 
     test("With duplicated email", async () => {
