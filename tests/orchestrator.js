@@ -37,7 +37,7 @@ async function createUser(params) {
     username:
       params?.username || faker.internet.username().replace(/[.-_]/g, ""),
     email: params?.email || faker.internet.email(),
-    password: "senha123",
+    password: params?.password || "senha-valida",
   });
 }
 
